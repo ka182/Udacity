@@ -3,14 +3,18 @@ import urllib
 def read_text():
     quotes = open('movie_quotes.txt')
     content = quotes.read()
-    print(content)
     quotes.close()
     check_profinity(content)
 
 def check_profinity(text_to_check):
     connection = urllib.urlopen("http://www.wdyl.com/profanity?q=" + text_to_check)
     output = connection.read()
-    print (output)
     connection.close()
+    if "true" in output:
+        print('Profanity Alert!!')
+    elif "false" in output:
+        print('this document has no curse words')
+    else:
+        print('Could not scan the document properly')
 
 read_text()
